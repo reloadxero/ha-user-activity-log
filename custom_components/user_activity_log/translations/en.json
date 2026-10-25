@@ -1,0 +1,26 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "User Activity Log",
+        "description": "Log which users use Home Assistant, when, and what they do (actions, dashboard page views, logins). Adds an \"Activity Log\" panel to the sidebar for administrators."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "User Activity Log is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "User Activity Log options",
+        "data": {
+          "retention_days": "Keep history for (days)",
+          "track_page_views": "Log dashboard and page views",
+          "track_indirect": "Log automations and scripts triggered by a user's action",
+          "track_sessions": "Log session refreshes (shows when a device was last active)"
+        }
+      }
+    }
+  }
+}

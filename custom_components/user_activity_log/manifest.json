@@ -1,0 +1,14 @@
+{
+  "domain": "user_activity_log",
+  "name": "User Activity Log",
+  "codeowners": ["@reloadxero"],
+  "config_flow": true,
+  "dependencies": ["frontend", "http", "panel_custom", "websocket_api"],
+  "documentation": "https://github.com/reloadxero/ha-user-activity-log",
+  "integration_type": "service",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/reloadxero/ha-user-activity-log/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "0.1.0"
+}
