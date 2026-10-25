@@ -6,6 +6,7 @@ from collections import OrderedDict
 from collections.abc import Callable
 from datetime import timedelta
 import logging
+import re
 from typing import Any
 
 from homeassistant.const import EVENT_CALL_SERVICE, EVENT_STATE_CHANGED, MATCH_ALL
@@ -38,6 +39,8 @@ USER_CHANGE_EVENTS = {"user_added", "user_updated", "user_removed"}
 
 TARGET_KEYS = ("entity_id", "device_id", "area_id", "floor_id", "label_id")
 MAX_CONTEXTS = 5000
+
+_IP_RE = re.compile(r"\bfrom ([0-9A-Fa-f:.]+)")
 
 TOKEN_TYPE_SYSTEM = "system"
 TOKEN_TYPE_LONG_LIVED = "long_lived_access_token"
@@ -288,9 +291,8 @@ class FailedLoginHandler(logging.Handler):
         lowered = message.lower()
         if "invalid authentication" not in lowered and "login attempt" not in lowered:
             return
-        ip = None
-        if isinstance(record.args, tuple) and record.args:
-            ip = str(record.args[0])
+        match = _IP_RE.search(message)
+        ip = match.group(1) if match else None
         self.hass.loop.call_soon_threadsafe(self._add, message, ip)
 
     def _add(self, message: str, ip: str | None) -> None:
